@@ -14,7 +14,7 @@ const app = express();
 // Replace with your Mongo Atlas URI
 const MONGO_URI = '';
 if (!MONGO_URI) {
-  throw new Error('You must provide a Mongo Atlas URI');
+    throw new Error('You must provide a Mongo Atlas URI');
 }
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
@@ -26,10 +26,10 @@ mongoose.set('strictQuery', false);
 
 mongoose.connect(MONGO_URI);
 mongoose.connection
-  .once('open', () => console.log('Connected to Mongo Atlas instance.'))
-  .on('error', (error) =>
+    .once('open', () => console.log('Connected to Mongo Atlas instance.'))
+    .on('error', (error) =>
     console.log('Error connecting to Mongo Atlas:', error)
-  );
+    );
 
 // Configures express to use sessions.  This places an encrypted identifier
 // on the users cookie.  When a user makes a request, this middleware examines
@@ -37,15 +37,15 @@ mongoose.connection
 // The cookie itself only contains the id of a session; more data about the session
 // is stored inside of MongoDB.
 app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: 'aaabbbccc',
-    store: new MongoStore({
-      url: MONGO_URI,
-      autoReconnect: true
+    session({
+        resave: true,
+        saveUninitialized: true,
+        secret: 'aaabbbccc',
+        store: new MongoStore({
+            url: MONGO_URI,
+            autoReconnect: true
+        })
     })
-  })
 );
 
 // Passport is wired into express as a middleware. When a request comes in,
@@ -57,11 +57,11 @@ app.use(passport.session());
 // Instruct Express to pass on any request made to the '/graphql' route
 // to the GraphQL instance.
 app.use(
-  '/graphql',
-  expressGraphQL({
-    schema,
-    graphiql: true
-  })
+    '/graphql',
+    expressGraphQL({
+        schema,
+        graphiql: true
+    })
 );
 
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
