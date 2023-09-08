@@ -61,9 +61,9 @@ function signup({ email, password, req }) {
                 req.logIn(user, (err) => {
                     if (err) { reject(err); }
                     resolve(user);
+                });
             });
         });
-    });
 };
 
 // Logs in a user.  This will invoke the 'local-strategy' defined above in this
