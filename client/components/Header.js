@@ -6,7 +6,9 @@ import mutation from '../mutations/Logout';
 
 class Header extends Component {
     onLogoutClick() {
-        this.props.mutate({});
+        this.props.mutate({
+            refetchQueries: [{ query: query }]
+        });
     };
 
     renderButtons() {
@@ -31,7 +33,7 @@ class Header extends Component {
                         </Link>
                     </li>
                     <li>
-                        <Link>
+                        <Link to="/login">
                             Login
                         </Link>
                     </li>
